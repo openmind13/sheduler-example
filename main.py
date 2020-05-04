@@ -61,10 +61,7 @@ def write1():
                 with open("file1.json", "a") as file1:
                     json.dump(data1.pop(0), file1, indent=4, sort_keys=True)
             write_file1.clear()
-            semaphore.release()
-            write_file1.wait()
-            semaphore.acquire()
-            
+            write_file1.wait()            
 
 
 def write2():
@@ -89,11 +86,8 @@ def write3():
                 with open("file3.json", "a") as file3:
                     json.dump(data3.pop(0), file3, indent=4, sort_keys=True)
             write_file3.clear()
-            semaphore.release()
             write_file3.wait()
-            semaphore.acquire()
             
-
 
 def main():
     w1 = threading.Thread(target=write1, args=(), name="w1")
