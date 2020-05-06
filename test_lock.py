@@ -18,12 +18,10 @@ def one():
 
 
 def two():
-    print("lock 2")
-    lock.acquire()
-    print("sleep for 5 second")
-    time.sleep(5)
-    lock.release()
-    print("exiting 2")
+    for i in range(3):
+        print("skdf")
+    with lock:
+        print("hello")
 
 
 def main():
