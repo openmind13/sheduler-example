@@ -104,44 +104,48 @@ def read():
     time.sleep(1)
 
     while True:
-        with lock_file1:
-            write_file2.set()
-            write_file3.set()
+        # with lock_file1:
+        lock_file1.acquire()
 
-            lock_file1.acquire()
-            print("reading from file 1")
-            with open("file1.json", "r") as file:
-                data = file.read()
-                print(data)
-            lock_file1.release()
+        write_file2.set()
+        write_file3.set()
 
-            time.sleep(1)
+        print("reading from file 1")
+        with open("file1.json", "r") as file:
+            data = file.read()
+            print(data)
+        lock_file1.release()
 
-        with lock_file2:
-            write_file1.set()
-            write_file3.set()
+        time.sleep(1)
 
-            lock_file2.acquire()
-            print("reading from file 2")
-            with open("file2.json", "r") as file:
-                data = file.read()
-                print(data)
-            lock_file2.release()
-    
-            time.sleep(1)
 
-        with lock_file3:
-            write_file1.set()
-            write_file2.set()
+        # with lock_file2:
+        lock_file2.acquire()
+        write_file1.set()
+        write_file3.set()
 
-            lock_file2.acquire()
-            print("reading from file 3")
-            with open("file3.json", "r") as file:
-                data = file.read()
-                print(data)
-            lock_file3.release()
+        print("reading from file 2")
+        with open("file2.json", "r") as file:
+            data = file.read()
+            print(data)
 
-            time.sleep(1)
+        lock_file2.release()
+
+        time.sleep(1)
+
+
+        # with lock_file3:
+        lock_file3.acquire()
+        write_file1.set()
+        write_file2.set()
+
+        print("reading from file 3")
+        with open("file3.json", "r") as file:
+            data = file.read()
+            print(data)
+        lock_file3.release()
+
+        time.sleep(1)
 
         write_file1.set()
         write_file2.set()
@@ -149,72 +153,7 @@ def read():
 
         # print("not reading")
         # time.sleep(1)
-
-
-    # while True:
-    
-        # 1
-        # with lock_file1:
-        #     write_file2.set()
-        #     write_file3.set()
-            
-        #     lock_file1.acquire()
-        #     print("reading from file 1")
-        #     # time.sleep(1)
-        #     lock_file1.release()
-
-        # with lock_file2:
-        #     write_file1.set()
-        #     write_file3.set()
-            
-        #     lock_file2.acquire()
-        #     print("reading from file 2")
-        #     # time.sleep(1)
-        #     lock_file2.release()
-
-        # with lock_file3:
-        #     write_file1.set()
-        #     write_file2.set()
-            
-        #     lock_file3.acquire()
-        #     print("reading from file 3")
-        #     # time.sleep(1)
-        #     lock_file3.release()
-
-        # time.sleep(3)
-
-        # with lock_file1:
-        #     write_file1.clear()
-        #     # lock_file1.acquire()
-        #     print("read from file 1")
-        #     # lock_file1.release()
-        #     write_file1.set()
-
-        # with lock_file2:
-        #     write_file2.clear()
-        #     # lock_file2.acquire()
-        #     print("read from file 2")
-        #     # lock_file2.release()
-        #     write_file2.set()
-
-        # with lock_file3:
-        #     write_file3.clear()
-        #     # lock_file3.acquire()
-        #     print("read from file 3")
-        #     # lock_file3.release()
-        #     write_file1.set()
-
-        # print("not reading")
-        # 2
-
-        # 3
-
-        # 4
-
         
-        # time.sleep(4)
-        # print("waiting for 4 second")
-       
 
 def main():
     w1 = threading.Thread(target=write1, args=(), name="w1")
