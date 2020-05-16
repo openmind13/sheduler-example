@@ -173,7 +173,6 @@ def main():
     event_pool.put(read_file)
     # pool.put(parse_data)
 
-
     write_file1.clear()
     write_file2.clear()
     write_file3.clear()
@@ -207,7 +206,6 @@ def main():
         e3 = event_pool.get()
         e3.set()
 
-
         time.sleep(2)
         event_pool.put(e1)
         event_pool.put(e2)
@@ -216,5 +214,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

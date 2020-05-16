@@ -8,6 +8,7 @@ sem = threading.Semaphore()
 
 count = {}
 
+
 def philosopher(name):
     count[name] = 0
     while True:
@@ -42,9 +43,6 @@ def main():
         for key in count:
             print(key,  " => ", count[key])
         sem.release()
-
-
-    
 
 
 if __name__ == "__main__":
